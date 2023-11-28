@@ -1,14 +1,16 @@
-export default function Admin(){
-    return (
-        <div>
-        <h1 className="text-center text-xl">Área Administrativa</h1>
-        
-        <a href="/admin/course">Listar Curso</a>
-        <a href="/admin/course/new">Cadastrar Curso</a>
+import Link from 'next/link';
 
-    
+export default function Admin() {
+  return (
+    <div>
+      <h1 className="text-center text-xl">Área Administrativa</h1>
 
-        </div>
-        
-    )
+      <Link href="/admin/course">
+        <a>Listar Curso</a>
+      </Link>
+      <Link href="/admin/course/new">
+        <a>Cadastrar Curso</a>
+      </Link>
+    </div>
+  );
 }
