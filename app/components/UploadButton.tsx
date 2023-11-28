@@ -1,12 +1,13 @@
 "use client"
-
-import { url } from "inspector";
 import { CldUploadButton } from "next-cloudinary";
-import { Router } from "next/router";
+import {  useRouter } from "next/navigation";
 
 export default function UploadButton(){
+    const router = useRouter()
+    
     function handleUpload(result:any, widget:any){
-        
+
+       router.push(`?url=${result?.info?.url}`)
 
         widget.close()
     }
@@ -17,3 +18,5 @@ export default function UploadButton(){
         />
     )
 }
+
+
