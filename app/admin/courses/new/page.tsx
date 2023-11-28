@@ -14,15 +14,20 @@ export default function NewCourse({
   const urlImage = searchParams?.url || '';
 
   async function saveCourse(formData: FormData) {
-    // Remova a string "use server" - não é necessária no código
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
-    await sql`INSERT INTO courses (title, description, url) VALUES(${title}, ${description}, ${urlImage})`;
-    console.log("Acessou a função");
+
+    try {
+      // Executa a inserção no banco de dados
+      await sql`INSERT INTO courses (title, description, url) VALUES(${title}, ${description}, ${urlImage})`;
+      console.log("Curso salvo com sucesso!");
+    } catch (error) {
+      console.error("Erro ao salvar o curso:", error);
+    }
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault(); // Impede o comportamento padrão de envio do formulário
+    event.preventDefault();
     const formData = new FormData(event.currentTarget);
     await saveCourse(formData);
   }
@@ -30,12 +35,12 @@ export default function NewCourse({
   return (
     <div>
       <h1 className="text-white text-center text-4xl">Cadastrar Cursos</h1>
-      <form onSubmit={handleSubmit}> {/* Adicione o evento onSubmit para chamar a função de salvar */}
+      <form onSubmit={handleSubmit}>
         <input type="text" name="title" placeholder="Digite o Título do Curso" /><br /><br />
         <input type="text" name="description" placeholder="Digite a Descrição do curso" /> <br /><br />
         <br />
         <UploadButton />
-        <button type="submit" className="text-white">Salvar</button> {/* Adicione type="submit" para submeter o formulário */}
+        <button type="submit" className="text-white">Salvar</button>
       </form>
     </div>
   );
